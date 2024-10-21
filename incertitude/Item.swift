@@ -1,9 +1,3 @@
-//
-//  Item.swift
-//  incertitude
-//
-//  Created by Eric Wu on 10/20/24.
-//
 
 import Foundation
 import SwiftData

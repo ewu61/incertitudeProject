@@ -1,32 +1,21 @@
-//
-//  incertitudeApp.swift
-//  incertitude
-//
-//  Created by Eric Wu on 10/20/24.
-//
-
 import SwiftUI
-import SwiftData
+import FirebaseCore
 
 @main
 struct incertitudeApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+    init() {
+        FirebaseApp.configure()
+    }
 
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    @State private var isUserLoggedIn = false
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if isUserLoggedIn {
+                MainContentView(isUserLoggedIn: $isUserLoggedIn)  // Pass the login state to MainContentView
+            } else {
+                LoginView(isUserLoggedIn: $isUserLoggedIn)  // Pass the login state to LoginView
+            }
         }
-        .modelContainer(sharedModelContainer)
     }
 }
